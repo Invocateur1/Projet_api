@@ -1,215 +1,205 @@
-Description
+## Description
 
-Ce projet est une API développée avec Laravel, conçue pour gérer un système de blog avec des fonctionnalités de création, modification, suppression d'articles, ainsi que d'authentification des utilisateurs via JWT (JSON Web Token). Elle comprend également un mécanisme de Rate Limiting pour protéger l'API contre les abus et garantir un usage équitable.
+Ce projet est une API développée avec **Laravel**, conçue pour gérer un système de blog avec des fonctionnalités de création, modification, suppression d'articles, ainsi que d'authentification des utilisateurs via JWT (JSON Web Token). Elle comprend également un mécanisme de **Rate Limiting** pour protéger l'API contre les abus et garantir un usage équitable.
 
-Fonctionnalités
-Authentification
+## Fonctionnalités
 
-Enregistrement des utilisateurs : Permet aux utilisateurs de s'enregistrer avec leur nom, email, et mot de passe.
+### Authentification
 
-Connexion : Authentification par email et mot de passe avec la génération d'un Token JWT.
+* **Enregistrement des utilisateurs** : Permet aux utilisateurs de s'enregistrer avec leur nom, email, et mot de passe.
+* **Connexion** : Authentification par email et mot de passe avec la génération d'un **Token JWT**.
+* **Rafraîchissement du Token** : Permet de rafraîchir un token JWT valide.
+* **Déconnexion** : Révoque le token actuel.
+* **Accès protégé** : Accès aux données utilisateurs et à la gestion des articles uniquement pour les utilisateurs authentifiés.
 
-Rafraîchissement du Token : Permet de rafraîchir un token JWT valide.
+### Gestion des Articles
 
-Déconnexion : Révoque le token actuel.
+* **Créer un article** : Les utilisateurs authentifiés peuvent créer des articles.
+* **Lire des articles** : Affichage des articles publiés. Les articles sont accessibles publiquement.
+* **Mettre à jour un article** : Un utilisateur peut modifier ses propres articles.
+* **Supprimer un article** : Les utilisateurs peuvent supprimer leurs propres articles.
 
-Accès protégé : Accès aux données utilisateurs et à la gestion des articles uniquement pour les utilisateurs authentifiés.
+### Rate Limiting
 
-Gestion des Articles
+* Mise en place de la **limitation de débit** pour prévenir l'abus de l'API (ex. : limiter les tentatives de connexion, les requêtes d'articles).
+* **Limites par minute et par jour** pour diverses actions.
 
-Créer un article : Les utilisateurs authentifiés peuvent créer des articles.
+## Technologies utilisées
 
-Lire des articles : Affichage des articles publiés. Les articles sont accessibles publiquement.
+* **Laravel** : Framework PHP pour le développement d'API.
+* **JWT** : Pour la gestion de l'authentification.
+* **MySQL** : Base de données utilisée pour stocker les informations utilisateur et les articles.
+* **Postman** : Utilisé pour tester l'API de manière interactive.
 
-Mettre à jour un article : Un utilisateur peut modifier ses propres articles.
+## Installation
 
-Supprimer un article : Les utilisateurs peuvent supprimer leurs propres articles.
-
-Rate Limiting
-
-Mise en place de la limitation de débit pour prévenir l'abus de l'API (ex. : limiter les tentatives de connexion, les requêtes d'articles).
-
-Limites par minute et par jour pour diverses actions.
-
-Technologies utilisées
-
-Laravel : Framework PHP pour le développement d'API.
-
-JWT : Pour la gestion de l'authentification.
-
-MySQL : Base de données utilisée pour stocker les informations utilisateur et les articles.
-
-Postman : Utilisé pour tester l'API de manière interactive.
-
-Installation
-Prérequis
+### Prérequis
 
 Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votre machine :
 
-PHP 7.x ou supérieur
+* **PHP 8.x ou supérieur**
+* **Composer** pour la gestion des dépendances
+* **MySQL** ou un autre serveur de base de données compatible
+* **Postman** pour tester les requêtes API
+* **Git** pour cloner le repository
 
-Composer pour la gestion des dépendances
+### Étapes d'installation
 
-MySQL ou un autre serveur de base de données compatible
+1. **Cloner le projet depuis GitHub** :
 
-Postman pour tester les requêtes API
+   ```bash
+   git clone https://github.com/Invocateur1/Projet_api.git
+   cd projet_api
+   ```
 
-Git pour cloner le repository
+2. **Installer les dépendances** via Composer :
 
-Étapes d'installation
+   ```bash
+   composer install
+   ```
 
-Cloner le projet depuis GitHub :
+3. **Configurer le fichier `.env`** :
 
-git clone https://github.com/votre-utilisateur/laravel-api-blog.git
-cd laravel-api-blog
+   Copiez le fichier `.env.example` et renommez-le en `.env` :
 
+   ```bash
+   cp .env.example .env
+   ```
 
-Installer les dépendances via Composer :
+   Ensuite, configurez vos paramètres de base de données dans le fichier `.env`.
 
-composer install
+4. **Générer la clé d'application** :
 
+   ```bash
+   php artisan key:generate
+   ```
 
-Configurer le fichier .env :
+5. **Exécuter les migrations** pour créer les tables dans la base de données :
 
-Copiez le fichier .env.example et renommez-le en .env :
+   ```bash
+   php artisan migrate
+   ```
 
-cp .env.example .env
+6. **Lancer le serveur local** :
 
+   ```bash
+   php artisan serve
+   ```
 
-Ensuite, configurez vos paramètres de base de données dans le fichier .env.
+   L'API sera disponible à `http://127.0.0.1:8000`.
 
-Générer la clé d'application :
+## Test de l'API
 
-php artisan key:generate
+### Tester avec Postman
 
+1. **Créer une collection** dans Postman pour organiser les tests de l'API.
+2. **Ajouter des variables d'environnement** dans Postman :
 
-Exécuter les migrations pour créer les tables dans la base de données :
+   * `base_url` : `http://127.0.0.1:8000/api`
+   * `token` : Valeur vide à remplir après la connexion.
 
-php artisan migrate
+#### Exemple de tests
 
+* **Enregistrer un utilisateur** :
 
-Lancer le serveur local :
+  * Méthode : `POST`
+  * URL : `{{base_url}}/auth/register`
+  * Corps :
 
-php artisan serve
+    ```json
+    {
+      "name": "Jean Dupont",
+      "email": "jean@example.com",
+      "password": "password123",
+      "password_confirmation": "password123"
+    }
+    ```
 
+* **Se connecter** :
 
-L'API sera disponible à http://127.0.0.1:8000.
+  * Méthode : `POST`
+  * URL : `{{base_url}}/auth/login`
+  * Corps :
 
-Test de l'API
-Tester avec Postman
+    ```json
+    {
+      "email": "jean@example.com",
+      "password": "password123"
+    }
+    ```
 
-Créer une collection dans Postman pour organiser les tests de l'API.
+* **Obtenir les informations de l'utilisateur** (protégé) :
 
-Ajouter des variables d'environnement dans Postman :
+  * Méthode : `GET`
+  * URL : `{{base_url}}/auth/me`
+  * En-tête :
 
-base_url : http://127.0.0.1:8000/api
+    ```plaintext
+    Authorization: Bearer {{token}}
+    ```
 
-token : Valeur vide à remplir après la connexion.
+* **Créer un article** :
 
-Exemple de tests
+  * Méthode : `POST`
+  * URL : `{{base_url}}/posts`
+  * Corps :
 
-Enregistrer un utilisateur :
+    ```json
+    {
+      "titre": "Introduction à Laravel 12",
+      "contenu": "Laravel 12 apporte de nombreuses améliorations...",
+      "statut": "publie"
+    }
+    ```
 
-Méthode : POST
+#### Tests d'erreurs
 
-URL : {{base_url}}/auth/register
+1. **Validation échouée** (titre manquant) :
 
-Corps :
+   * Réponse attendue : `422 Unprocessable Entity` avec un message d'erreur.
 
-{
-  "name": "Jean Dupont",
-  "email": "jean@example.com",
-  "password": "password123",
-  "password_confirmation": "password123"
-}
+2. **Non autorisé** (sans token) :
 
+   * Réponse attendue : `401 Unauthorized`.
 
-Se connecter :
+3. **Trop de requêtes** (Rate Limiting atteint) :
 
-Méthode : POST
+   * Réponse attendue : `429 Too Many Requests`.
 
-URL : {{base_url}}/auth/login
-
-Corps :
-
-{
-  "email": "jean@example.com",
-  "password": "password123"
-}
-
-
-Obtenir les informations de l'utilisateur (protégé) :
-
-Méthode : GET
-
-URL : {{base_url}}/auth/me
-
-En-tête :
-
-Authorization: Bearer {{token}}
-
-
-Créer un article :
-
-Méthode : POST
-
-URL : {{base_url}}/posts
-
-Corps :
-
-{
-  "titre": "Introduction à Laravel 12",
-  "contenu": "Laravel 12 apporte de nombreuses améliorations...",
-  "statut": "publie"
-}
-
-Tests d'erreurs
-
-Validation échouée (titre manquant) :
-
-Réponse attendue : 422 Unprocessable Entity avec un message d'erreur.
-
-Non autorisé (sans token) :
-
-Réponse attendue : 401 Unauthorized.
-
-Trop de requêtes (Rate Limiting atteint) :
-
-Réponse attendue : 429 Too Many Requests.
-
-Rate Limiting
+## Rate Limiting
 
 Pour prévenir les abus de l'API, nous avons mis en place une limitation de débit sur certaines routes, notamment :
 
-POST /auth/login : Maximum 5 tentatives par minute.
+* **POST /auth/login** : Maximum 5 tentatives par minute.
+* **POST /auth/register** : Maximum 3 par heure.
+* **POST /posts** : Maximum 10 par minute pour les utilisateurs non authentifiés et 20 pour les utilisateurs authentifiés.
 
-POST /auth/register : Maximum 3 par heure.
+---
 
-POST /posts : Maximum 10 par minute pour les utilisateurs non authentifiés et 20 pour les utilisateurs authentifiés.
-
-Contribution
+## Contribution
 
 Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet, voici quelques étapes pour contribuer :
 
-Fork le projet.
+1. Fork le projet.
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-fonctionnalite`).
+3. Commitez vos changements (`git commit -am 'Ajout d\'une nouvelle fonctionnalité'`).
+4. Poussez à la branche (`git push origin feature/ma-fonctionnalite`).
+5. Ouvrez une Pull Request.
 
-Créez une branche pour votre fonctionnalité (git checkout -b feature/ma-fonctionnalite).
+---
 
-Commitez vos changements (git commit -am 'Ajout d\'une nouvelle fonctionnalité').
+## License
 
-Poussez à la branche (git push origin feature/ma-fonctionnalite).
+Ce projet est sous la licence **MIT** - voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-Ouvrez une Pull Request.
+---
 
-License
-
-Ce projet est sous la licence MIT - voir le fichier LICENSE
- pour plus de détails.
-
-Exemple d'utilisation avec PowerShell pour tester le rate limiting
+### Exemple d'utilisation avec PowerShell pour tester le rate limiting
 
 Voici un exemple de script PowerShell pour tester les limites de taux de l'API, par exemple pour tester les tentatives de connexion.
 
-Créez un fichier nommé test_rate_limit.ps1 avec le code fourni dans votre projet.
+1. Créez un fichier nommé `test_rate_limit.ps1` avec le code fourni dans votre projet.
+2. Exécutez le script pour envoyer plusieurs requêtes et observer le comportement de l'API lorsqu'une limite est atteinte.
 
-Exécutez le script pour envoyer plusieurs requêtes et observer le comportement de l'API lorsqu'une limite est atteinte.
+
+Laisse-moi savoir si tu souhaites ajouter ou modifier des parties du README !
