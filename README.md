@@ -39,7 +39,7 @@ Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votr
 
 * **PHP 8.x ou supérieur**
 * **Composer** pour la gestion des dépendances
-* **MySQL** ou un autre serveur de base de données compatible
+* **Xampp** ou un autre serveur de base de données compatible
 * **Postman** pour tester les requêtes API
 * **Git** pour cloner le repository
 
@@ -83,10 +83,12 @@ Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votr
 6. **Lancer le serveur local** :
 
    ```bash
-   php artisan serve
+   composer run dev
    ```
-
+  
    L'API sera disponible à `http://127.0.0.1:8000`.
+
+   Assurer que le serveur web comme **Xampp** fonctionne.
 
 ## Test de l'API
 
