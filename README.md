@@ -202,6 +202,3 @@ Voici un exemple de script PowerShell pour tester les limites de taux de l'API, 
 
 1. Créez un fichier nommé `test_rate_limit.ps1` avec le code fourni dans votre projet.
 2. Exécutez le script pour envoyer plusieurs requêtes et observer le comportement de l'API lorsqu'une limite est atteinte.
-
-
-Laisse-moi savoir si tu souhaites ajouter ou modifier des parties du README !
