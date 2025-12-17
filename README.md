@@ -178,24 +178,6 @@ Pour prévenir les abus de l'API, nous avons mis en place une limitation de déb
 
 ---
 
-## Contribution
-
-Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet, voici quelques étapes pour contribuer :
-
-1. Fork le projet.
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-fonctionnalite`).
-3. Commitez vos changements (`git commit -am 'Ajout d\'une nouvelle fonctionnalité'`).
-4. Poussez à la branche (`git push origin feature/ma-fonctionnalite`).
-5. Ouvrez une Pull Request.
-
----
-
-## License
-
-Ce projet est sous la licence **MIT** - voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
----
-
 ### Exemple d'utilisation avec PowerShell pour tester le rate limiting
 
 Voici un exemple de script PowerShell pour tester les limites de taux de l'API, par exemple pour tester les tentatives de connexion.
